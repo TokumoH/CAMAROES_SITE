@@ -4,31 +4,33 @@ import { siteLinks } from "@/data/links"
 // ✏️ EDITE AQUI: textos da seção "Projetos em destaque" da página inicial.
 
 export const featuredIntro = {
-  title: "Coisas que já tiramos do papel.",
-  text: "Experimentamos, prototipamos e construímos em parceria. Cada projeto é uma chance de gerar impacto mensurável.",
+  title: "Desenvolvendo e aprendendo.",
+  text: "Testamos, erramos, ajustamos e construímos." + 
+        " Cada projeto é um passo a mais para descobrir o que a gente consegue fazer.",
 }
 
 // Cartão grande (com imagem de fundo)
 export const featuredMain = {
-  tags: ["Tag 1", "Tag 2"],
+  tags: ["Extensão", "Inovação"],
   label: "Projeto em destaque",
-  title: "Título do projeto em destaque",
+  title: "SEMEIA",
   image: siteImages.featuredProject,
   imageAlt: "Imagem do projeto em destaque",
   /** Para onde a seta do cartão leva. */
   link: siteLinks.projectsPage,
 }
 
-// Cartão roxo (arte: uma letra grande)
+// Cartões de projetos feitos em colaboração com outras equipes.
 export const featuredPurple = {
-  art: "P",
-  category: "Categoria",
-  title: "Título do projeto 02",
+  image: siteImages.projectCollaborations[0],
+  imageAlt: "Arte do RevoCast com ilustrações de mídia, leitura e tecnologia",
+  category: "Participamos também",
+  title: "RevoCast",
 }
 
-// Cartão coral (arte: texto curto em código, uma linha por item)
 export const featuredCoral = {
-  codeLines: ["texto curto", "aqui"],
-  category: "Categoria",
-  title: "Título do projeto 03",
+  image: siteImages.projectCollaborations[1],
+  imageAlt: "Logo da faculdade",
+  category: "Onde a gente estuda",
+  title: "IFSP - Campus Birigui",
 }

@@ -7,6 +7,7 @@ export const siteLinks = {
   teamPage: "#/equipe",
   projectsPage: "#/projetos",
   contactEmail: "mailto:camaroes.inc@gmail.com",
+  contactEmailAddress: "camaroes.inc@gmail.com",
   instagram: "https://www.instagram.com/camaroes.inc?vrfl=ZDNlZDc0MzIxNw==",
-  linkedin: "#sobre",
+  faculdade: "https://bri.ifsp.edu.br/",
 } as const

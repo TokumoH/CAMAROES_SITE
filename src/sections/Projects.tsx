@@ -1,4 +1,5 @@
 import SectionTag from "@/components/ui/SectionTag"
+import InteractiveImage from "@/components/ui/InteractiveImage"
 import { ArrowIcon } from "@/components/ui/Icons"
 import {
   featuredCoral,
@@ -38,29 +39,22 @@ export default function Projects() {
 
       <div className="project-grid">
         <article className="mini-project mini-project--purple">
-          <div className="mini-project__art">
-            <span>{featuredPurple.art}</span>
-            <i />
-            <i />
-            <i />
-          </div>
+          <InteractiveImage
+            className="mini-project__visual mini-project__visual--revo"
+            src={featuredPurple.image}
+            alt={featuredPurple.imageAlt}
+          />
           <div>
             <p>{featuredPurple.category}</p>
             <h3>{featuredPurple.title}</h3>
           </div>
         </article>
         <article className="mini-project mini-project--coral">
-          <div className="mini-project__code">
-            <span>+</span>
-            <code>
-              {featuredCoral.codeLines.map((line, index) => (
-                <span key={line}>
-                  {index > 0 && <br />}
-                  {line}
-                </span>
-              ))}
-            </code>
-          </div>
+          <InteractiveImage
+            className="mini-project__visual mini-project__visual--support"
+            src={featuredCoral.image}
+            alt={featuredCoral.imageAlt}
+          />
           <div>
             <p>{featuredCoral.category}</p>
             <h3>{featuredCoral.title}</h3>

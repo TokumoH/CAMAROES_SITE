@@ -6,7 +6,7 @@ import { projects, projectsIntro } from "@/data/projects"
 export default function ProjectsPage() {
   return (
     <>
-      <PageHero {...projectsIntro} />
+      <PageHero {...projectsIntro} imageLayout="projects" />
       <div className="project-list">
         {projects.map((project, index) => (
           <ProjectRow

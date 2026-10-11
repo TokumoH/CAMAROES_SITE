@@ -40,8 +40,12 @@ export default function Header() {
         >
           Equipe
         </a>
-        <a href={siteLinks.contact} onClick={closeMenu}>
-          Contato
+        <a
+          className="mobile-contact-link"
+          href={siteLinks.contact}
+          onClick={closeMenu}
+        >
+          Vamos conversar <ArrowIcon />
         </a>
       </nav>
 

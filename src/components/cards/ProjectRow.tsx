@@ -1,4 +1,4 @@
-import Photo from "@/components/ui/Photo"
+import InteractiveImage from "@/components/ui/InteractiveImage"
 import { ArrowIcon } from "@/components/ui/Icons"
 import type { Project } from "@/data/projects"
 
@@ -13,9 +13,11 @@ export default function ProjectRow({
   const dark = index % 2 === 1
   return (
     <article className={dark ? "project-row project-row--dark" : "project-row"}>
-      <div className="project-row__media">
-        <Photo src={project.image} alt={project.title} />
-      </div>
+      <InteractiveImage
+        className="project-row__media"
+        src={project.image}
+        alt={project.title}
+      />
       <div className="project-row__body">
         <p className="project-row__number">
           {String(index + 1).padStart(2, "0")} · {project.category}

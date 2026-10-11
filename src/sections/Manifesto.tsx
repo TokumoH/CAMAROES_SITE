@@ -13,9 +13,8 @@ export default function Manifesto() {
         </p>
         <div className="manifesto-detail">
           <p>
-            Somos uma empresa universitária formada por gente inquieta.
-            Transformamos conhecimento em produtos, experiências e soluções que
-            fazem diferença de verdade.
+            Somos uma startup universitária formada por gente inquieta.<br />
+            Gostamos de tirar ideia do papel, errar rápido e tentar de novo, sempre aprendendo juntos.
           </p>
           <div className="manifesto-actions">
             <a className="button button--primary" href={siteLinks.teamPage}>
