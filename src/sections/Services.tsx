@@ -1,5 +1,4 @@
 import SectionTag from "@/components/ui/SectionTag"
-import { ArrowIcon } from "@/components/ui/Icons"
 import { services } from "@/data/content"
 
 export default function Services() {
@@ -25,9 +24,6 @@ export default function Services() {
             </div>
             <h3>{service.title}</h3>
             <p>{service.text}</p>
-            <a href="#contato" aria-label={`Saiba mais sobre ${service.title}`}>
-              Explorar <ArrowIcon />
-            </a>
           </article>
         ))}
       </div>

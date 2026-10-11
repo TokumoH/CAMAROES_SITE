@@ -6,14 +6,17 @@ import { team, teamIntro } from "@/data/team"
 export default function Team() {
   return (
     <>
-      <PageHero {...teamIntro} />
-      <section className="team section">
+      <PageHero
+        {...teamIntro}
+        actionTargetId="equipe-fotos"
+        actionLabel="Conheça nossos membros"
+      />
+      <section className="team section" id="equipe-fotos">
         <div className="team-grid">
-          {team.map((member, index) => (
+          {team.map((member) => (
             <MemberCard
-              key={`${member.name}-${index}`}
+              key={member.name}
               member={member}
-              index={index}
             />
           ))}
         </div>

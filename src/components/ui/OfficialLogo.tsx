@@ -1,13 +1,5 @@
-export default function OfficialLogo({
-  variant = "horizontal",
-}: {
-  variant?: "horizontal" | "vertical" | "icon"
-}) {
-  return (
-    <span
-      className={`official-logo official-logo--${variant}`}
-      role="img"
-      aria-label="Logo oficial camarões.inc"
-    />
-  )
+import { siteImages } from "@/data/assets"
+
+export default function OfficialLogo() {
+  return <img className="official-logo" src={siteImages.logoMark} alt="Símbolo camarões.inc" />
 }

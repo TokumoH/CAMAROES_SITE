@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { ArrowIcon } from "@/components/ui/Icons"
 import { siteImages } from "@/data/assets"
+import { siteLinks } from "@/data/links"
 import { useRoute } from "@/router"
 
 export default function Header() {
@@ -10,7 +11,7 @@ export default function Header() {
 
   return (
     <header className="site-header">
-      <a className="brand" href="#inicio" aria-label="camarões.inc — início">
+      <a className="brand" href={siteLinks.home} aria-label="camarões.inc — início">
         <img
           className="brand__image"
           src={siteImages.headerLogo}
@@ -19,32 +20,36 @@ export default function Header() {
       </a>
 
       <nav className={menuOpen ? "nav-links nav-links--open" : "nav-links"}>
-        <a href="#sobre" onClick={closeMenu}>
+        <a href={siteLinks.about} onClick={closeMenu}>
           Sobre
         </a>
-        <a href="#fazemos" onClick={closeMenu}>
+        <a href={siteLinks.services} onClick={closeMenu}>
           O que fazemos
         </a>
         <a
-          href="#/projetos"
+          href={siteLinks.projectsPage}
           aria-current={route === "projects" ? "page" : undefined}
           onClick={closeMenu}
         >
           Projetos
         </a>
         <a
-          href="#/equipe"
+          href={siteLinks.teamPage}
           aria-current={route === "team" ? "page" : undefined}
           onClick={closeMenu}
         >
           Equipe
         </a>
-        <a href="#contato" onClick={closeMenu}>
-          Contato
+        <a
+          className="mobile-contact-link"
+          href={siteLinks.contact}
+          onClick={closeMenu}
+        >
+          Vamos conversar <ArrowIcon />
         </a>
       </nav>
 
-      <a className="header-cta" href="#contato">
+      <a className="header-cta" href={siteLinks.contact}>
         Vamos conversar <ArrowIcon />
       </a>
 

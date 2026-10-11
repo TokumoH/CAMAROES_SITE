@@ -25,5 +25,4 @@ export const audiences = [
   ["Instituições", "Pesquisa aplicada, inovação e transformação digital."],
   ["Sociedade", "Tecnologia acessível para desafios do cotidiano."],
   ["Governo", "Soluções públicas eficientes, humanas e escaláveis."],
-  ["Academia", "Projetos que fazem o conhecimento sair do papel."],
 ]

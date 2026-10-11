@@ -3,20 +3,19 @@ import type { Member } from "@/data/team"
 
 export default function MemberCard({
   member,
-  index,
 }: {
   member: Member
-  index: number
 }) {
   const links = member.links.filter((link) => link.href)
   return (
     <article className="member">
       <div className="member__photo">
         <Photo src={member.image} alt={member.name} />
-        <span className="member__number">
-          {String(index + 1).padStart(2, "0")}
-        </span>
       </div>
+      <span className="member__kit-number" role="img" aria-label={`Camisa número ${member.jerseyNumber}`}>
+        {member.jerseyNumber}
+      </span>
+      <img className="member__sticker" src={member.sticker} alt="" aria-hidden="true" />
       <h3>{member.name}</h3>
       <p className="member__role">{member.role}</p>
       <p className="member__bio">{member.bio}</p>

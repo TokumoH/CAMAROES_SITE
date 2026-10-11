@@ -6,6 +6,8 @@ export type Member = {
   bio: string
   /** Caminho da foto dentro de public/, ex.: "images/team/ana.jpg". Vazio = espaço reservado. */
   image: string
+  sticker: string
+  jerseyNumber: string
   /** Links opcionais (aparecem só se tiverem href). Ex.: { label: "LinkedIn", href: "https://..." } */
   links: { label: string; href: string }[]
 }
@@ -15,45 +17,58 @@ export const teamIntro = {
   eyebrow: "Nossa equipe",
   title: "Pessoas inquietas que ",
   highlight: "transformam ideias.",
+  imageSrc: siteImages.teamHero,
+  imageAlt: "Estudantes colaborando em um projeto",
   description:
-    "Escreva aqui uma breve apresentação da equipe: quem são vocês, o que os une e como trabalham juntos.",
+    "A camarões.inc é uma startup universitária feita por estudantes de engenharia da computação que querem entender" +
+     ", na prática, como uma empresa nasce e funciona.",
 }
 
 // ✏️ EDITE AQUI: os 5 membros (a ordem do array é a ordem na página)
 export const team: Member[] = [
   {
-    name: "Nome do membro 01",
-    role: "Cargo ou função",
-    bio: "Escreva aqui uma breve apresentação sobre esta pessoa.",
+    name: "Victor Hideki Ioza Tokumo",
+    role: "CTO",
+    bio: "Bacharel em Engenharia de Computação com afinidade em Engenharia de Software e desenvolvimento de sistemas.",
     image: siteImages.team[0],
-    links: [{ label: "LinkedIn", href: "" }],
+    sticker: siteImages.teamStickers[0],
+    jerseyNumber: "♥",
+    links: [{ label: "LinkedIn", href: "https://www.linkedin.com/in/victortokumo/" }],
   },
   {
-    name: "Nome do membro 02",
-    role: "Cargo ou função",
-    bio: "Escreva aqui uma breve apresentação sobre esta pessoa.",
+    name: "João Pedro de Oliveira",
+    role: "Desenvolvedor",
+    bio: "Bacharel em Engenharia de Computação com experiência em tecnologias web e desenovlimento de aplicações.",
     image: siteImages.team[1],
-    links: [{ label: "LinkedIn", href: "" }],
+    sticker: siteImages.teamStickers[1],
+    jerseyNumber: "♪",
+    links: [{ label: "LinkedIn", href: "https://www.linkedin.com/in/jo%C3%A3o-pedro-ferreira-oliveira-2a4382204/" }],
   },
   {
-    name: "Nome do membro 03",
-    role: "Cargo ou função",
-    bio: "Escreva aqui uma breve apresentação sobre esta pessoa.",
+    name: "Júlia Monguini Ribeiro",
+    role: "CEO",
+    bio: "Bacharel em Engenharia de Computação, entusiasta da robótica, programação, gestão de projetos e literatura.",
     image: siteImages.team[2],
-    links: [{ label: "LinkedIn", href: "" }],
+    sticker: siteImages.teamStickers[2],
+    jerseyNumber: "☺",
+    links: [{ label: "LinkedIn", href: "https://www.linkedin.com/in/j%C3%BAlia-monguini-371708364/" }],
   },
   {
-    name: "Nome do membro 04",
-    role: "Cargo ou função",
-    bio: "Escreva aqui uma breve apresentação sobre esta pessoa.",
+    name: "Bruno Messias de Souza Lara",
+    role: "Desenvolvedor",
+    bio: "Bacharel em Engenharia de Computação com experiência em desenvolvimento e análise de dados.",
     image: siteImages.team[3],
+    sticker: siteImages.teamStickers[3],
+    jerseyNumber: "☼",
     links: [{ label: "LinkedIn", href: "" }],
   },
   {
-    name: "Nome do membro 05",
-    role: "Cargo ou função",
-    bio: "Escreva aqui uma breve apresentação sobre esta pessoa.",
+    name: "Katherina de Oliveira Achkar",
+    role: "COO",
+    bio: "Bacharel em Engenharia de Computação com experiência em desenvolvimento web.",
     image: siteImages.team[4],
+    sticker: siteImages.teamStickers[4],
     links: [{ label: "LinkedIn", href: "" }],
+    jerseyNumber: "♦",
   },
 ]

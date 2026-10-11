@@ -1,5 +1,6 @@
 import OfficialLogo from "@/components/ui/OfficialLogo"
 import { ArrowIcon } from "@/components/ui/Icons"
+import { siteLinks } from "@/data/links"
 
 export default function Contact() {
   return (
@@ -19,12 +20,12 @@ export default function Contact() {
           Conte seu desafio. A próxima solução que transforma a universidade —
           ou o mundo — pode começar aqui.
         </p>
-        <a className="button button--light" href="mailto:contato@camaroes.inc">
+        <a className="button button--light" href={siteLinks.contactEmail}>
           Tirar uma ideia do papel <ArrowIcon />
         </a>
       </div>
       <div className="contact-mark">
-        <OfficialLogo variant="icon" />
+        <OfficialLogo />
       </div>
     </section>
   )
