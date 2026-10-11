@@ -1,5 +1,6 @@
 import { ArrowIcon } from "@/components/ui/Icons"
 import { siteImages } from "@/data/assets"
+import { siteLinks } from "@/data/links"
 
 export default function Hero() {
   return (
@@ -21,10 +22,10 @@ export default function Hero() {
           acadêmicos e sociais em soluções digitais reais.
         </p>
         <div className="hero-actions">
-          <a className="button button--primary" href="#projetos">
+          <a className="button button--primary" href={siteLinks.projectsSection}>
             Conheça nossos projetos <ArrowIcon />
           </a>
-          <a className="text-link" href="#sobre">
+          <a className="text-link" href={siteLinks.about}>
             Descubra quem somos
           </a>
         </div>

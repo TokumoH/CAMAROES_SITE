@@ -1,4 +1,5 @@
 import { siteImages } from "@/data/assets"
+import { siteLinks } from "@/data/links"
 
 // ✏️ EDITE AQUI: textos da seção "Projetos em destaque" da página inicial.
 
@@ -15,7 +16,7 @@ export const featuredMain = {
   image: siteImages.featuredProject,
   imageAlt: "Imagem do projeto em destaque",
   /** Para onde a seta do cartão leva. */
-  link: "#/projetos",
+  link: siteLinks.projectsPage,
 }
 
 // Cartão roxo (arte: uma letra grande)

@@ -60,6 +60,7 @@ camaroes-inc/
 │   ├── data/                # Conteúdo editável, separado do layout
 │   │   ├── content.tsx      # Home: serviços, públicos e foto padrão do destaque
 │   │   ├── assets.ts        # Caminhos centralizados das imagens do site
+│   │   ├── links.ts         # Destinos centrais da navegação e contato
 │   │   ├── featured.ts      # Home: textos da seção "Projetos em destaque"
 │   │   ├── team.ts          # Equipe: texto de abertura e os 5 membros
 │   │   └── projects.ts      # Projetos: texto de abertura e os 3 projetos
@@ -101,9 +102,10 @@ hospedagem estática, sem configuração adicional.
 | Equipe | `/#/equipe` |
 | Projetos | `/#/projetos` |
 
-Para criar uma nova página: (1) crie o arquivo em `src/pages/`, (2) adicione a rota e o
-título em `src/router.ts`, (3) registre a página em `src/App.tsx`, (4) adicione o link
-em `src/components/layout/Header.tsx`.
+Os destinos fixos de navegação e contato ficam em `src/data/links.ts`. Para criar uma nova
+página: (1) crie o arquivo em `src/pages/`, (2) adicione o destino em `src/data/links.ts`
+e a rota/título em `src/router.ts`, (3) registre a página em `src/App.tsx` e (4) conecte o
+link no componente apropriado.
 
 ## Guia de organização
 
@@ -124,8 +126,9 @@ em `src/components/layout/Header.tsx`.
 | Alterar os caminhos das imagens do site | `siteImages` em `src/data/assets.ts` |
 | Trocar a foto do projeto em destaque | `public/images/site/featured-project.jpg` |
 | Adicionar ou reordenar seções da home | criar em `src/sections/` e ajustar `src/pages/Home.tsx` |
-| Mudar itens do menu | `src/components/layout/Header.tsx` (âncoras `#id` para seções da home, `#/rota` para páginas) |
-| Mudar e-mail ou redes sociais | `Contact.tsx` e `Footer.tsx` |
+| Alterar destinos fixos de navegação | `siteLinks` em `src/data/links.ts` |
+| Mudar e-mail ou redes sociais | `siteLinks` em `src/data/links.ts` |
+| Mudar links de um projeto ou integrante | `src/data/projects.ts` ou `src/data/team.ts` |
 | Mudar cores, tamanhos e animações | `src/styles/index.css` |
 | Mudar título, descrição ou fontes | `index.html` |
 | Trocar o logo do header | `public/images/site/header-logo.jpg` |

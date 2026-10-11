@@ -1,12 +1,13 @@
 export const siteImages = {
   headerLogo: "/images/site/header-logo.svg",
+  logoMark: "/images/site/logo-mark.svg",
   homeHero: "/images/site/home-hero.jpg",
   featuredProject: "/images/site/featured-project.jpg",
   team: [
-    "/images/team/membro-01.svg",
-    "/images/team/membro-02.svg",
-    "/images/team/membro-03.svg",
-    "/images/team/membro-04.svg",
+    "/images/team/eu.jpeg",
+    "/images/team/Jao.jpeg",
+    "/images/team/mingos.jpeg",
+    "/images/team/bubus.jpeg",
     "/images/team/membro-05.svg",
   ],
   projects: [

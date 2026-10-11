@@ -6,6 +6,7 @@ import {
   featuredMain,
   featuredPurple,
 } from "@/data/featured"
+import { siteLinks } from "@/data/links"
 
 export default function Projects() {
   return (
@@ -68,7 +69,7 @@ export default function Projects() {
       </div>
 
       <div className="projects-more">
-        <a className="button button--primary" href="#/projetos">
+        <a className="button button--primary" href={siteLinks.projectsPage}>
           Ver todos os projetos <ArrowIcon />
         </a>
       </div>

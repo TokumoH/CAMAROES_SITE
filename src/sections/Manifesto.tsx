@@ -1,6 +1,6 @@
 import SectionTag from "@/components/ui/SectionTag"
-import OfficialLogo from "@/components/ui/OfficialLogo"
 import { ArrowIcon } from "@/components/ui/Icons"
+import { siteLinks } from "@/data/links"
 
 export default function Manifesto() {
   return (
@@ -18,18 +18,14 @@ export default function Manifesto() {
             fazem diferença de verdade.
           </p>
           <div className="manifesto-actions">
-            <a className="button button--primary" href="#/equipe">
+            <a className="button button--primary" href={siteLinks.teamPage}>
               Conheça a equipe <ArrowIcon />
             </a>
-            <a className="text-link text-link--dark" href="#fazemos">
+            <a className="text-link text-link--dark" href={siteLinks.services}>
               Veja como trabalhamos <ArrowIcon />
             </a>
           </div>
         </div>
-      </div>
-      <div className="manifesto-stamp">
-        <OfficialLogo variant="icon" />
-        <span>CRIA · TESTA · TRANSFORMA ·</span>
       </div>
     </section>
   )

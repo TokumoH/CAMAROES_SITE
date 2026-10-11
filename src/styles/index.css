@@ -42,7 +42,7 @@ svg {
 
 main {
   min-width: 320px;
-  overflow: hidden;
+  overflow-x: clip;
 }
 
 .site-header {
@@ -54,7 +54,8 @@ main {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #29282a;
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 20;
 }
 
@@ -74,30 +75,9 @@ main {
 .official-logo {
   display: block;
   flex: none;
-  overflow: hidden;
-  background-image: url("/images/site/brand-identity.png");
-  background-repeat: no-repeat;
-}
-
-.official-logo--horizontal {
-  width: 225px;
-  height: 52px;
-  background-size: 1312px 1199px;
-  background-position: -47px -1131px;
-}
-
-.official-logo--vertical {
-  width: 570px;
-  height: 330px;
-  background-size: 1312px 1199px;
-  background-position: -64px -36px;
-}
-
-.official-logo--icon {
   width: 108px;
   height: 108px;
-  background-size: 1312px 1199px;
-  background-position: -516px -443px;
+  object-fit: contain;
 }
 
 .nav-links {
@@ -579,33 +559,6 @@ h2 em {
 
 .text-link--dark {
   color: var(--black);
-}
-
-.manifesto-stamp {
-  width: 132px;
-  height: 132px;
-  position: absolute;
-  left: 7vw;
-  bottom: 55px;
-  background: var(--black);
-  box-shadow: 8px 8px 0 var(--coral);
-  clip-path: polygon(12% 0, 100% 8%, 90% 100%, 0 88%);
-  display: grid;
-  place-items: center;
-}
-
-.manifesto-stamp .official-logo {
-  transform: scale(0.82);
-}
-
-.manifesto-stamp span {
-  width: 100%;
-  position: absolute;
-  font-size: 8px;
-  letter-spacing: 2px;
-  color: var(--white);
-  text-align: center;
-  transform: rotate(-15deg);
 }
 
 .services {
@@ -1184,10 +1137,6 @@ footer {
   .manifesto {
     grid-template-columns: 1fr;
     gap: 50px;
-  }
-
-  .manifesto-stamp {
-    display: none;
   }
 
   .section-heading,

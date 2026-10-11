@@ -1,11 +1,16 @@
-import OfficialLogo from "@/components/ui/OfficialLogo"
+import { siteImages } from "@/data/assets"
+import { siteLinks } from "@/data/links"
 
 export default function Footer() {
   return (
     <footer>
       <div className="footer-top">
-        <a className="brand brand--footer" href="#inicio">
-          <OfficialLogo />
+        <a className="brand brand--footer" href={siteLinks.home}>
+          <img
+            className="brand__image"
+            src={siteImages.headerLogo}
+            alt="camarões.inc"
+          />
         </a>
         <p>
           Da universidade
@@ -16,11 +21,11 @@ export default function Footer() {
       <div className="footer-bottom">
         <p>© 2025 camarões.inc</p>
         <div>
-          <a href="#sobre">Instagram</a>
-          <a href="#sobre">LinkedIn</a>
-          <a href="mailto:contato@camaroes.inc">E-mail</a>
+          <a href={siteLinks.instagram}>Instagram</a>
+          <a href={siteLinks.linkedin}>LinkedIn</a>
+          <a href={siteLinks.contactEmail}>E-mail</a>
         </div>
-        <a href="#inicio">Voltar ao topo ↑</a>
+        <a href={siteLinks.home}>Voltar ao topo ↑</a>
       </div>
     </footer>
   )
