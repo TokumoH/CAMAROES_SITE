@@ -20,7 +20,7 @@ export default function Contact() {
           Conte seu desafio. A próxima solução que transforma a universidade —
           ou o mundo — pode começar aqui.
         </p>
-        <a className="button button--light" href={siteLinks.contactEmail}>
+        <a className="button button--light" href={siteLinks.gmailCompose}>
           Tirar uma ideia do papel <ArrowIcon />
         </a>
       </div>

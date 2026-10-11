@@ -1,3 +1,5 @@
+const contactEmailAddress = "camaroes.inc@gmail.com"
+
 export const siteLinks = {
   home: "#inicio",
   about: "#sobre",
@@ -6,8 +8,8 @@ export const siteLinks = {
   contact: "#contato",
   teamPage: "#/equipe",
   projectsPage: "#/projetos",
-  contactEmail: "mailto:camaroes.inc@gmail.com",
-  contactEmailAddress: "camaroes.inc@gmail.com",
+  contactEmailAddress,
+  gmailCompose: `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contactEmailAddress)}`,
   instagram: "https://www.instagram.com/camaroes.inc?vrfl=ZDNlZDc0MzIxNw==",
   faculdade: "https://bri.ifsp.edu.br/",
 } as const
