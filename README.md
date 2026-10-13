@@ -48,6 +48,7 @@ camaroes-inc/
 │   │       ├── SectionTag.tsx    # Etiqueta numerada das seções
 │   │       ├── PageHero.tsx      # Cabeçalho das páginas internas
 │   │       ├── Photo.tsx         # Imagem, ou espaço reservado se estiver vazia
+│   │   │   ├── InteractiveImage.tsx # Imagem com moldura, zoom e link opcional
 │   │       └── Icons.tsx         # Ícones SVG (seta, código, órbita, play)
 │   ├── sections/            # Seções da página inicial, uma por arquivo
 │   │   ├── Hero.tsx         # Topo, com chamada principal
@@ -87,6 +88,21 @@ camaroes-inc/
    endereço (`link` / `href`).
 5. Para adicionar ou remover um membro ou projeto, basta adicionar ou apagar um item do
    array. O layout se ajusta sozinho (a última linha da equipe fica centralizada).
+
+### Imagens e links dos projetos
+
+- Coloque os arquivos em `public/images/projects/` e registre seus caminhos em
+   `siteImages` no arquivo `src/data/assets.ts`.
+- Para os cards colaborativos da home, configure `image`, `imageAlt`, `imageLink` e
+   `imageFit` em `featuredPurple` ou `featuredCoral`, em `src/data/featured.ts`.
+- Para projetos da página completa, configure `image`, `imageLink` e `imageFit` em cada
+   item de `src/data/projects.ts`. O `ProjectRow` repassa esses campos ao componente comum.
+- `imageLink` é opcional. URLs `http`/`https` abrem em nova aba; links internos ficam na
+   mesma aba. Sem `imageLink`, a imagem não é clicável.
+- `imageFit` aceita `cover` (padrão, preenche e pode recortar) ou `contain` (mostra a
+   imagem inteira, ideal para logos).
+- `InteractiveImage` centraliza o recorte, o efeito de hover, o enquadramento e o link
+   opcional. Use-o quando quiser uma imagem clicável com o mesmo tratamento visual.
 
 Dica de imagem: use fotos da equipe na proporção 4:5 (vertical) e imagens de projeto na
 proporção 4:3, em JPG ou WebP, de preferência com menos de 400 KB.

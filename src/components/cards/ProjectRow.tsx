@@ -17,6 +17,8 @@ export default function ProjectRow({
         className="project-row__media"
         src={project.image}
         alt={project.title}
+        href={project.imageLink}
+        fit={project.imageFit}
       />
       <div className="project-row__body">
         <p className="project-row__number">

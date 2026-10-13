@@ -27,8 +27,7 @@ export default function Header() {
           O que fazemos
         </a>
         <a
-          href={siteLinks.projectsPage}
-          aria-current={route === "projects" ? "page" : undefined}
+          href={siteLinks.projectsSection}
           onClick={closeMenu}
         >
           Projetos
