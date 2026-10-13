@@ -10,7 +10,7 @@ export const siteImages = {
     "/images/team/Jao.jpeg",
     "/images/team/mingos.jpeg",
     "/images/team/bubus.jpeg",
-    "/images/team/membro-05.svg",
+    "/images/team/katlandor.jpeg",
   ],
   teamStickers: [
     "/images/team/stickers/sticker-01.svg",

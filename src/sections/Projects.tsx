@@ -31,9 +31,11 @@ export default function Projects() {
             <p>{featuredMain.label}</p>
             <h3>{featuredMain.title}</h3>
           </div>
-          <a href={featuredMain.link} aria-label="Conhecer projeto em destaque">
-            <ArrowIcon />
-          </a>
+          {featuredMain.link && (
+            <a href={featuredMain.link} aria-label="Conhecer projeto em destaque">
+              <ArrowIcon />
+            </a>
+          )}
         </div>
       </article>
 
@@ -43,6 +45,8 @@ export default function Projects() {
             className="mini-project__visual mini-project__visual--revo"
             src={featuredPurple.image}
             alt={featuredPurple.imageAlt}
+            href={featuredPurple.imageLink}
+            fit={featuredPurple.imageFit}
           />
           <div>
             <p>{featuredPurple.category}</p>
@@ -54,6 +58,8 @@ export default function Projects() {
             className="mini-project__visual mini-project__visual--support"
             src={featuredCoral.image}
             alt={featuredCoral.imageAlt}
+            href={featuredCoral.imageLink}
+            fit={featuredCoral.imageFit}
           />
           <div>
             <p>{featuredCoral.category}</p>

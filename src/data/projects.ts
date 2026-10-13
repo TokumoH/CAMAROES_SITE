@@ -7,6 +7,10 @@ export type Project = {
   tags: string[]
   /** Caminho da imagem dentro de public/, ex.: "images/projects/app.jpg". Vazio = espaço reservado. */
   image: string
+  /** Link opcional aberto ao clicar na imagem. */
+  imageLink?: string
+  /** Enquadramento opcional da imagem; use "contain" para logos. */
+  imageFit?: "cover" | "contain"
   /** Link do projeto (botão só aparece se preenchido). */
   link: string
   linkLabel: string

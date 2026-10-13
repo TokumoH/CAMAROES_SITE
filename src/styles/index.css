@@ -674,6 +674,7 @@ h2 em {
 .projects {
   background: var(--white);
   position: relative;
+  scroll-margin-top: 80px;
 }
 
 .projects-intro {
@@ -839,6 +840,21 @@ h2 em {
   transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
+.interactive-image__viewport--contain .photo:not(.photo--empty) {
+  object-fit: contain;
+}
+
+.interactive-image--linked {
+  display: block;
+  color: inherit;
+  cursor: pointer;
+}
+
+.interactive-image--linked:focus-visible {
+  outline: 3px solid var(--coral);
+  outline-offset: 5px;
+}
+
 .mini-project__visual {
   width: min(100%, 440px);
   aspect-ratio: 16 / 9;
@@ -909,6 +925,100 @@ h2 em {
   font-weight: 600;
   line-height: 1.25;
   letter-spacing: -1.5px;
+}
+
+@media (min-width: 981px) {
+  .projects.section {
+    min-height: calc(100svh - 92px);
+    padding: clamp(24px, 4vh, 36px) clamp(24px, 7vw, 108px);
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(320px, 1fr);
+    grid-template-rows: auto auto auto;
+    align-content: center;
+    column-gap: 24px;
+    row-gap: 16px;
+  }
+
+  .projects-intro {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    column-gap: clamp(40px, 6vw, 88px);
+    row-gap: 12px;
+  }
+
+  .projects-intro h2 {
+    max-width: 700px;
+    font-size: clamp(38px, 3.6vw, 52px);
+    line-height: 1.08;
+    letter-spacing: -2.5px;
+  }
+
+  .projects-intro > p {
+    max-width: 430px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .projects .featured-project {
+    grid-column: 1;
+    grid-row: 2;
+    height: clamp(280px, 35vh, 340px);
+    min-height: 0;
+    margin-top: 0;
+  }
+
+  .projects .featured-project__content {
+    padding: 30px;
+  }
+
+  .projects .featured-project__content > a {
+    width: 52px;
+    height: 52px;
+    right: 30px;
+    bottom: 30px;
+  }
+
+  .projects .project-grid {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 0;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .projects .mini-project {
+    min-height: 0;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+    gap: 14px;
+  }
+
+  .projects .mini-project__visual {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    padding: 5px;
+  }
+
+  .projects .mini-project h3 {
+    font-size: clamp(18px, 1.7vw, 24px);
+    line-height: 1.2;
+    letter-spacing: -0.75px;
+  }
+
+  .projects .mini-project > div:last-child p {
+    margin-bottom: 8px;
+    font-size: 9px;
+    letter-spacing: 1.2px;
+  }
+
+  .projects .projects-more {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    margin-top: 0;
+  }
 }
 
 .audiences {
