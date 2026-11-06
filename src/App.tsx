@@ -28,10 +28,12 @@ export default function App() {
   }, [route])
 
   return (
-    <main>
+    <>
       <Header />
-      <Page />
+      <main>
+        <Page />
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }
