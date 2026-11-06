@@ -25,7 +25,7 @@ camaroes-inc/
 ├── public/                  # Arquivos servidos como estão (sem processamento)
 │   ├── favicon.svg
 │   └── images/
-│       ├── site/            # JPEGs substituíveis do header e do hero da home
+│       ├── site/            # Logo, símbolo e imagens do hero e do destaque da home
 │       ├── team/            # Fotos da equipe
 │       └── projects/        # Imagens dos projetos
 ├── src/
@@ -44,11 +44,11 @@ camaroes-inc/
 │   │   │   ├── MemberCard.tsx   # Cartão de um membro da equipe
 │   │   │   └── ProjectRow.tsx   # Linha de um projeto (imagem + texto)
 │   │   └── ui/              # Peças reutilizáveis
-│   │       ├── OfficialLogo.tsx  # Logo (variantes horizontal, vertical e icon)
+│   │       ├── OfficialLogo.tsx  # Símbolo da marca (usado na seção de contato)
 │   │       ├── SectionTag.tsx    # Etiqueta numerada das seções
 │   │       ├── PageHero.tsx      # Cabeçalho das páginas internas
 │   │       ├── Photo.tsx         # Imagem, ou espaço reservado se estiver vazia
-│   │   │   ├── InteractiveImage.tsx # Imagem com moldura, zoom e link opcional
+│   │       ├── InteractiveImage.tsx # Imagem com moldura, zoom e link opcional
 │   │       └── Icons.tsx         # Ícones SVG (seta, código, órbita, play)
 │   ├── sections/            # Seções da página inicial, uma por arquivo
 │   │   ├── Hero.tsx         # Topo, com chamada principal
@@ -64,7 +64,7 @@ camaroes-inc/
 │   │   ├── links.ts         # Destinos centrais da navegação e contato
 │   │   ├── featured.ts      # Home: textos da seção "Projetos em destaque"
 │   │   ├── team.ts          # Equipe: texto de abertura e os 5 membros
-│   │   └── projects.ts      # Projetos: texto de abertura e os 3 projetos
+│   │   └── projects.ts      # Projetos: texto de abertura e a lista de projetos
 │   ├── styles/
 │   │   ├── index.css        # Tailwind + CSS global e da página inicial
 │   │   └── pages.css        # CSS das páginas Equipe e Projetos
@@ -155,13 +155,11 @@ link no componente apropriado.
 - Imports usam o alias `@/` (ex.: `import Hero from "@/sections/Hero"`).
 - Conteúdo que se repete (listas) fica em `src/data/`, não dentro do JSX.
 - Componentes genéricos vão em `components/ui/`; blocos da página, em `sections/`.
-- As classes de estilo são nomeadas por seção (`.hero`, `.services`, `.contact`...) dentro de um único `index.css`.
+- As classes de estilo são nomeadas por seção (`.hero`, `.services`, `.contact`...) em `index.css` (global e home) e `pages.css` (páginas internas).
 
 ## Pendências conhecidas
 
-- Links de Instagram e LinkedIn no rodapé ainda apontam para `#sobre`; troque pelos perfis reais.
-- O rodapé mostra "© 2025"; atualize o ano.
-- O e-mail de contato é `camaroes.inc@gmail.com` (definido em `contactEmailAddress`, em `src/data/links.ts`).
-- A foto do cartão grande de "Projetos em destaque" está em `public/images/site/featured-project.jpg`; substitua esse arquivo para usar outra imagem.
-- Os cartões de "Projetos em destaque" estão com textos de exemplo; preencha em `src/data/featured.ts`.
-- As páginas Equipe e Projetos estão com textos de exemplo; preencha-as conforme a seção acima.
+- O cartão grande de "Projetos em destaque" não tem link (`link` vazio em `featuredMain`, em `src/data/featured.ts`); a seta só aparece quando ele for preenchido.
+- Os projetos da página Projetos ainda não têm link (`link` vazio em `src/data/projects.ts`).
+- Os LinkedIn de Bruno e Katherina estão vazios em `src/data/team.ts` (o link fica oculto até ser preenchido).
+- O site ainda não tem domínio definido. Quando tiver, adicione em `index.html` a URL canônica e `og:url`/`og:image` (URLs absolutas) e crie `public/sitemap.xml`, citando-o em `public/robots.txt`.
