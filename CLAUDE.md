@@ -97,9 +97,12 @@ Outras arquiteturas (ex.: SSR/Next.js, roteador externo, gerenciador de estado g
 - **Convenções:** componentes em PascalCase, um por arquivo, `export default` (exceção: `Icons.tsx`);
   imports com o alias `@/`.
 - **Branches:** `master` é a principal; o trabalho acontece em branches de feature e entra por PR.
-- **Qualidade:** antes de entregar, rodar `npm run typecheck` e `npm run build`. Ainda **não há testes
-  automatizados nem CI**. Adotar (ex.: Vitest + Testing Library, GitHub Actions) é uma decisão pendente
+- **Qualidade:** antes de entregar, rodar `npm run typecheck` e `npm run build`. A **CI** (GitHub Actions,
+  [ADR 0001](docs/adr/0001-ci-github-actions.md)) roda os dois em todo PR e push para `master`.
+  Ainda **não há testes automatizados**; adotá-los (ex.: Vitest + Testing Library) é uma decisão pendente
   do usuário.
+- **Imagens e caminhos:** caminhos em `src/data/assets.ts` são **relativos** (sem `/` inicial), para
+  funcionar em subpastas. Fotos em WebP, redimensionadas.
 - **Fora do escopo (por enquanto):** backend, banco de dados, autenticação, CMS.
 
 Guia detalhado de estrutura e edição: [`README.md`](README.md).

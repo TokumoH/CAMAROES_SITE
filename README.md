@@ -15,6 +15,9 @@ npm run build      # gera a versão de produção em dist/
 npm run preview    # serve o conteúdo de dist/ localmente
 ```
 
+A CI (`.github/workflows/ci.yml`) roda `typecheck` e `build` em todo pull request e push para
+`master`. Decisão registrada em [`docs/adr/0001-ci-github-actions.md`](docs/adr/0001-ci-github-actions.md).
+
 Para publicar, envie o conteúdo da pasta `dist/` para qualquer hospedagem estática
 (Netlify, Vercel, GitHub Pages, Cloudflare Pages etc.).
 
