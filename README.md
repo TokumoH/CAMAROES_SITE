@@ -161,7 +161,7 @@ link no componente apropriado.
 
 - Links de Instagram e LinkedIn no rodapé ainda apontam para `#sobre`; troque pelos perfis reais.
 - O rodapé mostra "© 2025"; atualize o ano.
-- Confirme se `contato@camaroes.inc` existe.
+- O e-mail de contato é `camaroes.inc@gmail.com` (definido em `contactEmailAddress`, em `src/data/links.ts`).
 - A foto do cartão grande de "Projetos em destaque" está em `public/images/site/featured-project.jpg`; substitua esse arquivo para usar outra imagem.
 - Os cartões de "Projetos em destaque" estão com textos de exemplo; preencha em `src/data/featured.ts`.
 - As páginas Equipe e Projetos estão com textos de exemplo; preencha-as conforme a seção acima.
