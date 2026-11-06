@@ -38,7 +38,7 @@ export default function ProjectRow({
             className={dark ? "button button--light" : "button button--primary"}
             href={project.link}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             {project.linkLabel} <ArrowIcon />
           </a>

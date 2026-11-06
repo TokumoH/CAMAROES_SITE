@@ -19,7 +19,11 @@ export default function Header() {
         />
       </a>
 
-      <nav className={menuOpen ? "nav-links nav-links--open" : "nav-links"}>
+      <nav
+        id="site-nav"
+        className={menuOpen ? "nav-links nav-links--open" : "nav-links"}
+        aria-label="Navegação principal"
+      >
         <a href={siteLinks.about} onClick={closeMenu}>
           Sobre
         </a>
@@ -55,8 +59,9 @@ export default function Header() {
       <button
         className={menuOpen ? "menu-button menu-button--open" : "menu-button"}
         type="button"
-        aria-label="Abrir menu"
+        aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
         aria-expanded={menuOpen}
+        aria-controls="site-nav"
         onClick={() => setMenuOpen((open) => !open)}
       >
         <span />

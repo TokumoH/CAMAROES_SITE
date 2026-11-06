@@ -9,6 +9,7 @@ export const siteLinks = {
   teamPage: "#/equipe",
   projectsPage: "#/projetos",
   contactEmailAddress,
+  mailto: `mailto:${contactEmailAddress}`,
   gmailCompose: `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contactEmailAddress)}`,
   instagram: "https://www.instagram.com/camaroes.inc?vrfl=ZDNlZDc0MzIxNw==",
   faculdade: "https://bri.ifsp.edu.br/",

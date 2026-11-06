@@ -27,13 +27,13 @@ export const projectsIntro = {
     "Cada projeto começou como uma ideia solta e virou algo que a gente pôde testar, mostrar e aprender com ele.",
 }
 
-// ✏️ EDITE AQUI: os 3 projetos (a ordem do array é a ordem na página)
+// ✏️ EDITE AQUI: os projetos (a ordem do array é a ordem na página)
 export const projects: Project[] = [
   {
     title: "SEMEIA",
     category: "Extensão",
     description:
-      "SEMEIA, uma Plataforma de Inteligência Territorial e Sustentabilidade para Assentamentos," +
+      "SEMEIA, uma Plataforma de Inteligência Territorial e Sustentabilidade para Assentamentos, " +
       "nasce como uma iniciativa integrada de pesquisa, inovação e extensão, voltada à geração de conhecimento, fortalecimento produtivo e valorização dos territórios de assentamentos rurais.",
     tags: ["Extensão", "Inovação"],
     image: siteImages.projects[0],
@@ -47,16 +47,6 @@ export const projects: Project[] = [
       "Camarão Kart é um jogo de corrida criado como teste para o desenvolvimento de jogos 2D, com o objetivo de aprender e aplicar conceitos de programação, design e mecânicas de jogo.",
     tags: ["Jogo", "Desenvolvimento"],
     image: siteImages.projects[1],
-    link: "",
-    linkLabel: "Conhecer projeto",
-  },
-  {
-    title: "Título do projeto 03",
-    category: "Categoria",
-    description:
-      "Descreva aqui o projeto: qual problema resolve, para quem e qual foi o resultado.",
-    tags: ["Tag 1", "Tag 2"],
-    image: siteImages.projects[2],
     link: "",
     linkLabel: "Conhecer projeto",
   },

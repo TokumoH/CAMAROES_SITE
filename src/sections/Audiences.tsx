@@ -3,9 +3,10 @@ import SectionTag from "@/components/ui/SectionTag"
 import { audiences } from "@/data/content"
 
 export default function Audiences() {
-  // destaca um item de cada vez, em loop
+  // destaca um item de cada vez, em loop (desligado com "reduzir movimento")
   const [active, setActive] = useState(0)
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
     const id = setInterval(
       () => setActive((i) => (i + 1) % audiences.length),
       2500,

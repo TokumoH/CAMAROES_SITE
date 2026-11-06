@@ -40,7 +40,7 @@ svg {
   display: block;
 }
 
-main {
+#root {
   min-width: 320px;
   overflow-x: clip;
 }
@@ -693,11 +693,8 @@ h2 em {
 .projects-intro h2 {
   grid-column: 1;
   grid-row: 2;
-  margin-top: 0;
-}
-
-.projects-intro h2 {
   max-width: 600px;
+  margin-top: 0;
 }
 
 .projects-intro > p {
@@ -1143,6 +1140,17 @@ h2 em {
   line-height: 1.7;
 }
 
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 32px;
+}
+
+.contact-actions__mailto {
+  border-bottom-color: currentColor;
+}
+
 .button--light {
   color: var(--white);
   background: var(--black);
@@ -1267,10 +1275,6 @@ footer {
 
 .footer-bottom p {
   margin: 0;
-}
-
-.footer-bottom a {
-  justify-self: end;
 }
 
 .footer-bottom > a {

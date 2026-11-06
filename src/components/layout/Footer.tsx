@@ -2,6 +2,8 @@ import { useState } from "react"
 import { siteImages } from "@/data/assets"
 import { siteLinks } from "@/data/links"
 
+const currentYear = new Date().getFullYear()
+
 export default function Footer() {
   const [emailStatus, setEmailStatus] = useState("")
 
@@ -39,7 +41,7 @@ export default function Footer() {
             className="footer-info__value"
             href={siteLinks.instagram}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             @camaroes.inc
           </a>
@@ -64,7 +66,7 @@ export default function Footer() {
             className="footer-info__value"
             href={siteLinks.faculdade}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             Instituto Federal de São Paulo
             <br />
@@ -73,7 +75,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>© 2025 camarões.inc</p>
+        <p>© {currentYear} camarões.inc</p>
         <a href={siteLinks.home}>Voltar ao topo ↑</a>
       </div>
     </footer>

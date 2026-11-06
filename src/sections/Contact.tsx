@@ -20,9 +20,19 @@ export default function Contact() {
           Conte seu desafio. A próxima solução que transforma a universidade —
           ou o mundo — pode começar aqui.
         </p>
-        <a className="button button--light" href={siteLinks.gmailCompose}>
-          Tirar uma ideia do papel <ArrowIcon />
-        </a>
+        <div className="contact-actions">
+          <a
+            className="button button--light"
+            href={siteLinks.gmailCompose}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Tirar uma ideia do papel <ArrowIcon />
+          </a>
+          <a className="text-link contact-actions__mailto" href={siteLinks.mailto}>
+            ou use seu app de e-mail
+          </a>
+        </div>
       </div>
       <div className="contact-mark">
         <OfficialLogo />

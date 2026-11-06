@@ -38,7 +38,7 @@ export const team: Member[] = [
   {
     name: "João Pedro de Oliveira",
     role: "Desenvolvedor",
-    bio: "Bacharel em Engenharia de Computação com experiência em tecnologias web e desenovlimento de aplicações.",
+    bio: "Bacharel em Engenharia de Computação com experiência em tecnologias web e desenvolvimento de aplicações.",
     image: siteImages.team[1],
     sticker: siteImages.teamStickers[1],
     jerseyNumber: "♪",

@@ -15,6 +15,9 @@ npm run build      # gera a versão de produção em dist/
 npm run preview    # serve o conteúdo de dist/ localmente
 ```
 
+A CI (`.github/workflows/ci.yml`) roda `typecheck` e `build` em todo pull request e push para
+`master`. Decisão registrada em [`docs/adr/0001-ci-github-actions.md`](docs/adr/0001-ci-github-actions.md).
+
 Para publicar, envie o conteúdo da pasta `dist/` para qualquer hospedagem estática
 (Netlify, Vercel, GitHub Pages, Cloudflare Pages etc.).
 
@@ -25,7 +28,7 @@ camaroes-inc/
 ├── public/                  # Arquivos servidos como estão (sem processamento)
 │   ├── favicon.svg
 │   └── images/
-│       ├── site/            # JPEGs substituíveis do header e do hero da home
+│       ├── site/            # Logo, símbolo e imagens do hero e do destaque da home
 │       ├── team/            # Fotos da equipe
 │       └── projects/        # Imagens dos projetos
 ├── src/
@@ -44,11 +47,11 @@ camaroes-inc/
 │   │   │   ├── MemberCard.tsx   # Cartão de um membro da equipe
 │   │   │   └── ProjectRow.tsx   # Linha de um projeto (imagem + texto)
 │   │   └── ui/              # Peças reutilizáveis
-│   │       ├── OfficialLogo.tsx  # Logo (variantes horizontal, vertical e icon)
+│   │       ├── OfficialLogo.tsx  # Símbolo da marca (usado na seção de contato)
 │   │       ├── SectionTag.tsx    # Etiqueta numerada das seções
 │   │       ├── PageHero.tsx      # Cabeçalho das páginas internas
 │   │       ├── Photo.tsx         # Imagem, ou espaço reservado se estiver vazia
-│   │   │   ├── InteractiveImage.tsx # Imagem com moldura, zoom e link opcional
+│   │       ├── InteractiveImage.tsx # Imagem com moldura, zoom e link opcional
 │   │       └── Icons.tsx         # Ícones SVG (seta, código, órbita, play)
 │   ├── sections/            # Seções da página inicial, uma por arquivo
 │   │   ├── Hero.tsx         # Topo, com chamada principal
@@ -64,7 +67,7 @@ camaroes-inc/
 │   │   ├── links.ts         # Destinos centrais da navegação e contato
 │   │   ├── featured.ts      # Home: textos da seção "Projetos em destaque"
 │   │   ├── team.ts          # Equipe: texto de abertura e os 5 membros
-│   │   └── projects.ts      # Projetos: texto de abertura e os 3 projetos
+│   │   └── projects.ts      # Projetos: texto de abertura e a lista de projetos
 │   ├── styles/
 │   │   ├── index.css        # Tailwind + CSS global e da página inicial
 │   │   └── pages.css        # CSS das páginas Equipe e Projetos
@@ -104,8 +107,9 @@ camaroes-inc/
 - `InteractiveImage` centraliza o recorte, o efeito de hover, o enquadramento e o link
    opcional. Use-o quando quiser uma imagem clicável com o mesmo tratamento visual.
 
-Dica de imagem: use fotos da equipe na proporção 4:5 (vertical) e imagens de projeto na
-proporção 4:3, em JPG ou WebP, de preferência com menos de 400 KB.
+Dica de imagem: use fotos da equipe na proporção 4:5 (vertical, até 640 px de largura) e
+imagens de projeto na proporção 4:3 (até 1600 px), de preferência em WebP e com menos de 400 KB.
+Para converter, por exemplo: `cwebp -q 80 -resize 1600 0 foto.jpg -o foto.webp`.
 
 ## Navegação entre páginas
 
@@ -140,28 +144,26 @@ link no componente apropriado.
 | Mudar o visual das páginas Equipe/Projetos | `src/styles/pages.css` |
 | Mudar a lista de serviços ou de públicos | `src/data/content.tsx` |
 | Alterar os caminhos das imagens do site | `siteImages` em `src/data/assets.ts` |
-| Trocar a foto do projeto em destaque | `public/images/site/featured-project.jpg` |
+| Trocar a foto do projeto em destaque | `public/images/site/semeia.webp` (caminho em `featuredProject`, em `src/data/assets.ts`) |
 | Adicionar ou reordenar seções da home | criar em `src/sections/` e ajustar `src/pages/Home.tsx` |
 | Alterar destinos fixos de navegação | `siteLinks` em `src/data/links.ts` |
 | Mudar e-mail ou redes sociais | `siteLinks` em `src/data/links.ts` |
 | Mudar links de um projeto ou integrante | `src/data/projects.ts` ou `src/data/team.ts` |
 | Mudar cores, tamanhos e animações | `src/styles/index.css` |
 | Mudar título, descrição ou fontes | `index.html` |
-| Trocar o logo do header | `public/images/site/header-logo.jpg` |
-| Trocar a imagem à direita da home | `public/images/site/home-hero.jpg` |
+| Trocar o logo do header | `public/images/site/header-logo.svg` |
+| Trocar a imagem à direita da home | `public/images/site/home-hero.webp` |
 
 **Convenções**
 - Componentes em PascalCase, um por arquivo, com `export default` (exceto `Icons.tsx`, que exporta vários ícones nomeados).
 - Imports usam o alias `@/` (ex.: `import Hero from "@/sections/Hero"`).
 - Conteúdo que se repete (listas) fica em `src/data/`, não dentro do JSX.
 - Componentes genéricos vão em `components/ui/`; blocos da página, em `sections/`.
-- As classes de estilo são nomeadas por seção (`.hero`, `.services`, `.contact`...) dentro de um único `index.css`.
+- As classes de estilo são nomeadas por seção (`.hero`, `.services`, `.contact`...) em `index.css` (global e home) e `pages.css` (páginas internas).
 
 ## Pendências conhecidas
 
-- Links de Instagram e LinkedIn no rodapé ainda apontam para `#sobre`; troque pelos perfis reais.
-- O rodapé mostra "© 2025"; atualize o ano.
-- Confirme se `contato@camaroes.inc` existe.
-- A foto do cartão grande de "Projetos em destaque" está em `public/images/site/featured-project.jpg`; substitua esse arquivo para usar outra imagem.
-- Os cartões de "Projetos em destaque" estão com textos de exemplo; preencha em `src/data/featured.ts`.
-- As páginas Equipe e Projetos estão com textos de exemplo; preencha-as conforme a seção acima.
+- O cartão grande de "Projetos em destaque" não tem link (`link` vazio em `featuredMain`, em `src/data/featured.ts`); a seta só aparece quando ele for preenchido.
+- Os projetos da página Projetos ainda não têm link (`link` vazio em `src/data/projects.ts`).
+- Os LinkedIn de Bruno e Katherina estão vazios em `src/data/team.ts` (o link fica oculto até ser preenchido).
+- O site ainda não tem domínio definido. Quando tiver, adicione em `index.html` a URL canônica e `og:url`/`og:image` (URLs absolutas) e crie `public/sitemap.xml`, citando-o em `public/robots.txt`.
