@@ -104,8 +104,9 @@ camaroes-inc/
 - `InteractiveImage` centraliza o recorte, o efeito de hover, o enquadramento e o link
    opcional. Use-o quando quiser uma imagem clicável com o mesmo tratamento visual.
 
-Dica de imagem: use fotos da equipe na proporção 4:5 (vertical) e imagens de projeto na
-proporção 4:3, em JPG ou WebP, de preferência com menos de 400 KB.
+Dica de imagem: use fotos da equipe na proporção 4:5 (vertical, até 640 px de largura) e
+imagens de projeto na proporção 4:3 (até 1600 px), de preferência em WebP e com menos de 400 KB.
+Para converter, por exemplo: `cwebp -q 80 -resize 1600 0 foto.jpg -o foto.webp`.
 
 ## Navegação entre páginas
 
@@ -140,15 +141,15 @@ link no componente apropriado.
 | Mudar o visual das páginas Equipe/Projetos | `src/styles/pages.css` |
 | Mudar a lista de serviços ou de públicos | `src/data/content.tsx` |
 | Alterar os caminhos das imagens do site | `siteImages` em `src/data/assets.ts` |
-| Trocar a foto do projeto em destaque | `public/images/site/featured-project.jpg` |
+| Trocar a foto do projeto em destaque | `public/images/site/semeia.webp` (caminho em `featuredProject`, em `src/data/assets.ts`) |
 | Adicionar ou reordenar seções da home | criar em `src/sections/` e ajustar `src/pages/Home.tsx` |
 | Alterar destinos fixos de navegação | `siteLinks` em `src/data/links.ts` |
 | Mudar e-mail ou redes sociais | `siteLinks` em `src/data/links.ts` |
 | Mudar links de um projeto ou integrante | `src/data/projects.ts` ou `src/data/team.ts` |
 | Mudar cores, tamanhos e animações | `src/styles/index.css` |
 | Mudar título, descrição ou fontes | `index.html` |
-| Trocar o logo do header | `public/images/site/header-logo.jpg` |
-| Trocar a imagem à direita da home | `public/images/site/home-hero.jpg` |
+| Trocar o logo do header | `public/images/site/header-logo.svg` |
+| Trocar a imagem à direita da home | `public/images/site/home-hero.webp` |
 
 **Convenções**
 - Componentes em PascalCase, um por arquivo, com `export default` (exceto `Icons.tsx`, que exporta vários ícones nomeados).
