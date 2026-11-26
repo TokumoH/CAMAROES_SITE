@@ -1,3 +1,5 @@
+import type { ReactNode } from "react"
+
 type Props = {
   eyebrow: string
   title: string
@@ -8,6 +10,8 @@ type Props = {
   imageLayout?: "projects"
   actionTargetId?: string
   actionLabel?: string
+  /** Conteúdo à direita quando não há imagem (ex.: um quadro de status). */
+  aside?: ReactNode
 }
 
 // Cabeçalho padrão das páginas internas (Equipe, Projetos...).
@@ -21,10 +25,13 @@ export default function PageHero({
   imageLayout,
   actionTargetId,
   actionLabel,
+  aside,
 }: Props) {
   return (
     <section
       className={`page-hero${imageSrc ? " page-hero--with-image" : ""}${
+        aside && !imageSrc ? " page-hero--with-aside" : ""
+      }${
         imageLayout ? ` page-hero--${imageLayout}` : ""
       }`}
     >
@@ -53,6 +60,7 @@ export default function PageHero({
           </a>
         )}
       </div>
+      {aside && !imageSrc && aside}
       {imageSrc && (
         <div className="page-hero__visual">
           <img src={imageSrc} alt={imageAlt ?? ""} />

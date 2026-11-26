@@ -103,6 +103,11 @@ Outras arquiteturas (ex.: SSR/Next.js, roteador externo, gerenciador de estado g
   do usuário.
 - **Imagens e caminhos:** caminhos em `src/data/assets.ts` são **relativos** (sem `/` inicial), para
   funcionar em subpastas. Fotos em WebP, redimensionadas.
+- **Notícias** ([ADR 0002](docs/adr/0002-noticias-json-no-github.md)): conteúdo em
+  `public/data/noticias.json`, lido em tempo de execução da branch `master` no GitHub (cópia do site
+  como reserva). Domínio em `src/data/news.ts`; acesso à fonte (Pure Fabrication) em
+  `src/services/news/` atrás da interface `NewsRepository`; atualização automática no hook
+  `src/hooks/useNews.ts`. Trocar a fonte (ex.: CMS) = nova implementação de `NewsRepository`.
 - **Fora do escopo (por enquanto):** backend, banco de dados, autenticação, CMS.
 
 Guia detalhado de estrutura e edição: [`README.md`](README.md).

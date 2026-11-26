@@ -4,12 +4,14 @@ import Footer from "@/components/layout/Footer"
 import Home from "@/pages/Home"
 import Team from "@/pages/Team"
 import ProjectsPage from "@/pages/ProjectsPage"
+import NewsPage from "@/pages/NewsPage"
 import { routeTitles, useRoute, type Route } from "@/router"
 
 const pages: Record<Route, () => React.JSX.Element> = {
   home: Home,
   team: Team,
   projects: ProjectsPage,
+  news: NewsPage,
 }
 
 export default function App() {

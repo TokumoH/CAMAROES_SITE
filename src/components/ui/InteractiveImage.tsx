@@ -1,4 +1,5 @@
 import Photo from "@/components/ui/Photo"
+import { linkTargetProps } from "@/components/ui/linkProps"
 
 type Props = {
   src?: string
@@ -27,14 +28,8 @@ export default function InteractiveImage({
   const classes = `interactive-image ${className}${href ? " interactive-image--linked" : ""}`
 
   if (href) {
-    const external = /^https?:\/\//i.test(href)
     return (
-      <a
-        className={classes}
-        href={href}
-        target={external ? "_blank" : undefined}
-        rel={external ? "noopener noreferrer" : undefined}
-      >
+      <a className={classes} href={href} {...linkTargetProps(href)}>
         {image}
       </a>
     )

@@ -8,6 +8,7 @@ export const siteLinks = {
   contact: "#contato",
   teamPage: "#/equipe",
   projectsPage: "#/projetos",
+  newsPage: "#/noticias",
   contactEmailAddress,
   mailto: `mailto:${contactEmailAddress}`,
   gmailCompose: `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contactEmailAddress)}`,

@@ -1,0 +1,51 @@
+{
+  "news": [
+    {
+      "id": "2026-11-noticias-no-ar",
+      "title": "O site da camarões.inc agora tem uma página de notícias",
+      "summary": "Novidades de projetos, eventos e da equipe passam a ser publicadas aqui e aparecem automaticamente, sem precisar de um novo deploy do site.",
+      "category": "Equipe",
+      "publishedAt": "2026-11-26"
+    },
+    {
+      "id": "2026-11-conheca-o-semeia",
+      "title": "Conheça o SEMEIA, nosso projeto de extensão",
+      "summary": "Uma plataforma de inteligência territorial e sustentabilidade para assentamentos, que une pesquisa, inovação e extensão para fortalecer a produção e valorizar os territórios rurais.",
+      "category": "Projetos",
+      "publishedAt": "2026-11-26",
+      "image": "images/projects/semeia.webp",
+      "imageAlt": "Imagem do projeto SEMEIA",
+      "link": "#/projetos",
+      "featured": true
+    },
+    {
+      "id": "2026-11-camarao-kart",
+      "title": "Camarão Kart: aprendendo a fazer jogos 2D",
+      "summary": "O jogo de corrida nasceu como um teste para aplicar, na prática, conceitos de programação, design e mecânicas de jogo.",
+      "category": "Projetos",
+      "publishedAt": "2026-11-26",
+      "image": "images/projects/camaraoKart.webp",
+      "imageAlt": "Tela do jogo Camarão Kart",
+      "link": "#/projetos"
+    },
+    {
+      "id": "2026-11-revocast",
+      "title": "Também participamos do RevoCast",
+      "summary": "Além dos nossos projetos, colaboramos com outras equipes. O RevoCast é um deles.",
+      "category": "Eventos",
+      "publishedAt": "2026-11-26",
+      "image": "images/projects/revoCast.webp",
+      "imageAlt": "Arte do RevoCast com ilustrações de mídia, leitura e tecnologia",
+      "link": "https://revocast.vercel.app/"
+    },
+    {
+      "id": "2026-11-site-nova-versao",
+      "title": "Site da camarões.inc ganha nova versão",
+      "summary": "Imagens mais leves, melhorias de acessibilidade, metadados para compartilhamento e verificação automática a cada mudança no código.",
+      "category": "Equipe",
+      "publishedAt": "2026-11-06",
+      "image": "images/team/EquipeCamarao.webp",
+      "imageAlt": "Equipe da camarões.inc reunida"
+    }
+  ]
+}
