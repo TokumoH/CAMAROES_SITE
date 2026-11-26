@@ -33,4 +33,4 @@ e permissão de leitura apenas (`contents: read`).
 - PRs passam a mostrar se o tipo e o build estão íntegros.
 - Recomenda-se ativar, nas configurações do repositório, a regra que exige o check
   `CI / build` verde antes do merge em `master`.
-- Quando houver testes automatizados (ex.: Vitest), basta adicionar um passo `npm test`.
+- Os testes automatizados (Vitest, [ADR 0003](0003-testes-com-vitest.md)) rodam no passo `npm test`.
