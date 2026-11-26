@@ -109,7 +109,12 @@ Outras arquiteturas (ex.: SSR/Next.js, roteador externo, gerenciador de estado g
   como reserva). Domínio em `src/data/news.ts`; acesso à fonte (Pure Fabrication) em
   `src/services/news/` atrás da interface `NewsRepository`; atualização automática no hook
   `src/hooks/useNews.ts`. Trocar a fonte (ex.: CMS) = nova implementação de `NewsRepository`.
-- **Fora do escopo (por enquanto):** backend, banco de dados, autenticação, CMS.
+- **Notícias do Instagram** ([ADR 0004](docs/adr/0004-noticias-automaticas-do-instagram.md)): tarefa
+  agendada (`.github/workflows/sync-instagram.yml` + `scripts/sync-instagram-news.ts`) converte os posts
+  em notícias e grava na branch `noticias` (não editar à mão). Regras em `src/services/news/instagram/`;
+  hashtags em `src/data/news.ts`. A chave da API fica só nos segredos do GitHub, nunca no site.
+- **Fora do escopo (por enquanto):** backend (servidor próprio), banco de dados, autenticação, CMS.
+  Automação via GitHub Actions é permitida (ADR 0004).
 
 Guia detalhado de estrutura e edição: [`README.md`](README.md).
 

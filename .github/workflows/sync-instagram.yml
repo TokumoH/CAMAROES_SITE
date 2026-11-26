@@ -1,0 +1,112 @@
+# Transforma os posts do Instagram em notícias do site (ADR 0004).
+# Grava em uma branch própria ("noticias"), lida pelo site em tempo de execução.
+# Configuração única: docs/guias/instagram.md
+name: Notícias do Instagram
+
+on:
+  schedule:
+    - cron: "23 * * * *" # a cada hora
+    - cron: "41 6 * * 1" # toda segunda: renova a chave do Instagram
+  push:
+    branches: [master]
+    paths: [public/data/noticias.json] # notícia manual nova entra na hora
+  workflow_dispatch: # botão "Run workflow" na aba Actions
+    inputs:
+      renovar_chave:
+        description: "Renovar também a chave do Instagram (só funciona com chave de mais de 24 h)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-instagram
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+    steps:
+      - name: Verifica se a chave do Instagram foi configurada
+        id: token
+        run: |
+          if [ -z "$INSTAGRAM_ACCESS_TOKEN" ]; then
+            echo "::notice::Segredo INSTAGRAM_ACCESS_TOKEN não configurado; nada a fazer. Veja docs/guias/instagram.md"
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.token.outputs.ready == 'true'
+
+      - uses: actions/setup-node@v4
+        if: steps.token.outputs.ready == 'true'
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+        if: steps.token.outputs.ready == 'true'
+
+      - name: Prepara a branch de notícias
+        if: steps.token.outputs.ready == 'true'
+        run: |
+          if git ls-remote --exit-code --heads origin noticias > /dev/null; then
+            git fetch --depth=1 origin noticias:noticias
+            git worktree add "$RUNNER_TEMP/noticias" noticias
+          else
+            git worktree add --orphan -b noticias "$RUNNER_TEMP/noticias"
+          fi
+
+      - name: Busca os posts e gera as notícias
+        if: steps.token.outputs.ready == 'true'
+        run: npm run sync:instagram
+        env:
+          OUT_DIR: ${{ runner.temp }}/noticias
+
+      - name: Publica se algo mudou
+        if: steps.token.outputs.ready == 'true'
+        working-directory: ${{ runner.temp }}/noticias
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Sem novidades."
+            exit 0
+          fi
+          git -c user.name="github-actions[bot]" \
+              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -m "Atualiza notícias do Instagram"
+          git push origin noticias
+
+  refresh-token:
+    # A chave do Instagram vale 60 dias; renovar toda semana mantém ela sempre válida.
+    if: github.event.schedule == '41 6 * * 1' || inputs.renovar_chave
+    runs-on: ubuntu-latest
+    steps:
+      - name: Renova a chave do Instagram
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.SECRETS_ADMIN_TOKEN }}
+        run: |
+          if [ -z "$INSTAGRAM_ACCESS_TOKEN" ]; then
+            echo "::notice::Segredo INSTAGRAM_ACCESS_TOKEN não configurado; nada a renovar."
+            exit 0
+          fi
+          response=$(curl -sS "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=$INSTAGRAM_ACCESS_TOKEN")
+          new_token=$(echo "$response" | jq -r '.access_token // empty')
+          if [ -z "$new_token" ]; then
+            echo "::error::Não foi possível renovar a chave: $(echo "$response" | jq -r '.error.message // "resposta inesperada"')"
+            exit 1
+          fi
+          echo "::add-mask::$new_token"
+          days=$(( $(echo "$response" | jq -r '.expires_in // 0') / 86400 ))
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning::Chave renovada por $days dias, mas o segredo não foi atualizado (falta SECRETS_ADMIN_TOKEN). Veja docs/guias/instagram.md"
+            exit 0
+          fi
+          gh secret set INSTAGRAM_ACCESS_TOKEN --repo "$GITHUB_REPOSITORY" --body "$new_token"
+          echo "Chave renovada e salva: válida por mais $days dias."
