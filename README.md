@@ -83,12 +83,17 @@ camaroes-inc/
 │   │   ├── projects.ts      # Projetos: texto de abertura e a lista de projetos
 │   │   └── news.ts          # Notícias: tipo, categorias, regras (ordenar, filtrar) e texto de abertura
 │   ├── services/news/       # Busca das notícias (fonte, validação do JSON, cache)
+│   │   └── instagram/       # Post do Instagram → notícia, cliente da API e mescla
 │   ├── hooks/               # useNews (atualização automática) e useNow
 │   ├── test/                # Preparação dos testes (setup.ts) e dados de exemplo (fixtures.ts)
 │   ├── styles/
 │   │   ├── index.css        # Tailwind + CSS global e da página inicial
 │   │   └── pages.css        # CSS das páginas Equipe, Projetos e Notícias
 │   └── vite-env.d.ts
+├── scripts/
+│   ├── build-standalone.mjs # Gera o HTML único (npm run build:standalone)
+│   └── sync-instagram-news.ts # Tarefa que transforma posts do Instagram em notícias
+├── docs/                    # ADRs (decisões) e guias
 ├── index.html               # Shell HTML: título, descrição, fontes, favicon
 ├── vite.config.ts           # Vite + React + Tailwind + alias "@" para src/
 ├── tsconfig.json
@@ -130,13 +135,40 @@ Para converter, por exemplo: `cwebp -q 80 -resize 1600 0 foto.jpg -o foto.webp`.
 
 ## Publicando notícias
 
-As notícias ficam em [`public/data/noticias.json`](public/data/noticias.json). O site lê esse
-arquivo **direto da branch `master` no GitHub**, então uma notícia nova aparece sem novo deploy:
-basta editar o arquivo (pelo próprio GitHub, no ícone de lápis) e fazer o commit na `master`.
-O GitHub pode levar cerca de 5 minutos para servir a versão nova, e a página busca novidades
-a cada 5 minutos. Se o GitHub não responder, o site usa a cópia publicada junto com ele.
+### Pelo Instagram (automático)
 
-Cada notícia é um objeto dentro de `"news"`:
+**Basta postar no Instagram `@camaroes.inc`.** A cada hora, uma tarefa do GitHub Actions
+(`.github/workflows/sync-instagram.yml`) busca os posts novos e os transforma em notícias:
+
+- a primeira linha da legenda vira o **título** e o resto vira o **resumo**
+  (legenda de uma linha só: a primeira frase vira o título);
+- a foto vira a imagem (em vídeos, a capa; em carrosséis, a primeira mídia);
+- o link do post vira o "Ler mais"; a data é a do post, no horário de Brasília.
+
+Hashtags na legenda controlam a página (maiúsculas e acentos não importam):
+
+| Hashtag | Efeito |
+|---|---|
+| `#projetos` / `#projeto` | categoria **Projetos** |
+| `#eventos` / `#evento` | categoria **Eventos** |
+| `#ifsp` | categoria **IFSP** |
+| `#equipe` (ou nenhuma das acima) | categoria **Equipe** |
+| `#destaque` | coloca o post no destaque do topo |
+| `#nosite` | deixa o post **fora** do site |
+
+O post aparece no site em até ~1 hora (mais alguns minutos de cache do GitHub). Editar a legenda,
+apagar o post ou adicionar `#nosite` depois também é refletido na próxima execução. Posts sem
+texto na legenda são ignorados. Para mudar as hashtags, edite `instagramCategoryTags` em
+`src/data/news.ts`.
+
+A configuração é feita **uma única vez**: [`docs/guias/instagram.md`](docs/guias/instagram.md).
+Enquanto ela não for feita, a tarefa não faz nada e o site mostra só as notícias manuais.
+
+### Notícias manuais (opcional)
+
+Para algo que não foi para o Instagram, edite [`public/data/noticias.json`](public/data/noticias.json)
+na `master` (pode ser pelo lápis do GitHub). A tarefa junta essas notícias às do Instagram em
+poucos minutos, sem novo deploy. Cada notícia é um objeto dentro de `"news"`:
 
 ```json
 {
@@ -152,17 +184,24 @@ Cada notícia é um objeto dentro de `"news"`:
 }
 ```
 
-- **Obrigatórios:** `id` (único), `title`, `summary`, `category` (`Projetos`, `Eventos`, `Equipe`
-  ou `IFSP`) e `publishedAt` (`AAAA-MM-DD`). A lista é ordenada pela data automaticamente.
+- **Obrigatórios:** `id` (único; não comece com `ig-`, reservado ao Instagram), `title`, `summary`,
+  `category` (`Projetos`, `Eventos`, `Equipe` ou `IFSP`) e `publishedAt` (`AAAA-MM-DD`).
 - **Opcionais:** `image` (caminho em `public/` ou URL `https`) e `imageAlt`; `link` (`https://...`
-  ou rota interna como `#/projetos`); `featured: true` coloca a notícia no destaque (sem nenhuma
-  marcada, o destaque é a mais recente).
-- Itens com campo obrigatório faltando ou inválido são ignorados, e links ou imagens com
-  endereços não permitidos são descartados. Antes do commit, confira se o JSON é válido
-  (vírgulas e aspas).
-- Para criar uma categoria nova, adicione-a em `newsCategories`, em `src/data/news.ts`.
-- A fonte (usuário, repositório e branch do GitHub) fica em `src/services/news/index.ts`. Decisão
-  registrada em [`docs/adr/0002-noticias-json-no-github.md`](docs/adr/0002-noticias-json-no-github.md).
+  ou rota interna como `#/projetos`); `featured: true` para o destaque (sem nenhum destaque
+  marcado, vale a notícia mais recente).
+- Itens inválidos são ignorados, e links ou imagens com endereços não permitidos são descartados.
+  Antes do commit, confira se o JSON é válido (vírgulas e aspas).
+
+### Como o site lê as notícias
+
+Ordem de leitura (em `src/services/news/index.ts`; endereços em `src/services/news/config.ts`):
+1. `noticias.json` da branch **`noticias`**, gerada pela tarefa (Instagram + manuais, com as fotos).
+   **Não edite essa branch à mão**: ela é reescrita a cada execução;
+2. `public/data/noticias.json` da `master` (enquanto a branch gerada não existir);
+3. a cópia publicada junto com o site, se o GitHub não responder.
+
+Decisões: [ADR 0002](docs/adr/0002-noticias-json-no-github.md) e
+[ADR 0004](docs/adr/0004-noticias-automaticas-do-instagram.md).
 
 ## Testes
 
@@ -223,7 +262,8 @@ link no componente apropriado.
 | Mudar links de um projeto ou integrante | `src/data/projects.ts` ou `src/data/team.ts` |
 | Mudar cores, tamanhos e animações | `src/styles/index.css` |
 | Mudar título, descrição ou fontes | `index.html` |
-| Publicar ou editar notícias | `public/data/noticias.json` (veja "Publicando notícias") |
+| Publicar notícias | Postar no Instagram (veja "Publicando notícias"); manuais em `public/data/noticias.json` |
+| Mudar as hashtags que definem a categoria | `instagramCategoryTags` em `src/data/news.ts` |
 | Mudar o texto de abertura da página Notícias | `newsIntro` em `src/data/news.ts` |
 | Trocar o logo do header | `public/images/site/header-logo.svg` |
 | Trocar a imagem à direita da home | `public/images/site/home-hero.webp` |
@@ -240,5 +280,6 @@ link no componente apropriado.
 - O cartão grande de "Projetos em destaque" não tem link (`link` vazio em `featuredMain`, em `src/data/featured.ts`); a seta só aparece quando ele for preenchido.
 - Os projetos da página Projetos ainda não têm link (`link` vazio em `src/data/projects.ts`).
 - Os LinkedIn de Bruno e Katherina estão vazios em `src/data/team.ts` (o link fica oculto até ser preenchido).
+- Fazer a configuração única do Instagram ([`docs/guias/instagram.md`](docs/guias/instagram.md)).
 - As notícias iniciais de `public/data/noticias.json` foram escritas a partir do conteúdo do site; revise os textos e datas.
 - O site ainda não tem domínio definido. Quando tiver, adicione em `index.html` a URL canônica e `og:url`/`og:image` (URLs absolutas) e crie `public/sitemap.xml`, citando-o em `public/robots.txt`.

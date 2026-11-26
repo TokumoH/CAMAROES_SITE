@@ -1,6 +1,6 @@
 # ADR 0002: notícias em um JSON lido do GitHub
 
-- **Status:** aceito
+- **Status:** aceito; complementado pelo [ADR 0004](0004-noticias-automaticas-do-instagram.md)
 - **Data:** 2026-11-26
 
 ## Contexto

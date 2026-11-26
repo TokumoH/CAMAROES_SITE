@@ -33,6 +33,22 @@ export const newsIntro = {
     "Projetos que avançam, eventos de que participamos e novidades da equipe, atualizados automaticamente.",
 }
 
+// ✏️ EDITE AQUI: hashtags da legenda do Instagram que definem a categoria da notícia.
+// A comparação ignora maiúsculas e acentos. Sem nenhuma delas, vale a categoria padrão.
+export const instagramCategoryTags: Record<string, NewsCategory> = {
+  projetos: "Projetos",
+  projeto: "Projetos",
+  eventos: "Eventos",
+  evento: "Eventos",
+  equipe: "Equipe",
+  ifsp: "IFSP",
+}
+export const instagramDefaultCategory: NewsCategory = "Equipe"
+/** Hashtag que coloca o post no destaque da página. */
+export const instagramFeaturedTag = "destaque"
+/** Hashtag que deixa o post fora do site. */
+export const instagramHiddenTag = "nosite"
+
 /** Quantos cartões aparecem antes do botão "Carregar mais". */
 export const newsPageSize = 6
 
