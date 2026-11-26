@@ -44,6 +44,13 @@ export default function Header() {
           Equipe
         </a>
         <a
+          href={siteLinks.newsPage}
+          aria-current={route === "news" ? "page" : undefined}
+          onClick={closeMenu}
+        >
+          Notícias
+        </a>
+        <a
           className="mobile-contact-link"
           href={siteLinks.contact}
           onClick={closeMenu}

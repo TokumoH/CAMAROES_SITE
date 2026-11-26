@@ -27,6 +27,8 @@ Para publicar, envie o conteúdo da pasta `dist/` para qualquer hospedagem está
 camaroes-inc/
 ├── public/                  # Arquivos servidos como estão (sem processamento)
 │   ├── favicon.svg
+│   ├── data/
+│   │   └── noticias.json    # Notícias (lidas pelo site direto do GitHub)
 │   └── images/
 │       ├── site/            # Logo, símbolo e imagens do hero e do destaque da home
 │       ├── team/            # Fotos da equipe
@@ -34,24 +36,33 @@ camaroes-inc/
 ├── src/
 │   ├── main.tsx             # Ponto de entrada: monta <App /> no #root
 │   ├── App.tsx              # Layout (Header + página atual + Footer)
-│   ├── router.ts            # Rotas por hash: #/equipe, #/projetos (sem dependências)
+│   ├── router.ts            # Rotas por hash: #/equipe, #/projetos, #/noticias (sem dependências)
 │   ├── pages/               # Uma página por arquivo
 │   │   ├── Home.tsx         # Página inicial (monta as seções de sections/)
 │   │   ├── Team.tsx         # Página Equipe
-│   │   └── ProjectsPage.tsx # Página Projetos
+│   │   ├── ProjectsPage.tsx # Página Projetos
+│   │   └── NewsPage.tsx     # Página Notícias (lista que se atualiza sozinha)
 │   ├── components/
 │   │   ├── layout/          # Estrutura fixa da página
 │   │   │   ├── Header.tsx   # Menu, botão "Vamos conversar" e menu mobile
 │   │   │   └── Footer.tsx
 │   │   ├── cards/           # Cartões das páginas internas
 │   │   │   ├── MemberCard.tsx   # Cartão de um membro da equipe
-│   │   │   └── ProjectRow.tsx   # Linha de um projeto (imagem + texto)
+│   │   │   ├── ProjectRow.tsx   # Linha de um projeto (imagem + texto)
+│   │   │   ├── NewsCard.tsx     # Cartão de uma notícia
+│   │   │   ├── NewsFeatured.tsx # Notícia em destaque
+│   │   │   └── NewsCardSkeleton.tsx # Esqueleto exibido enquanto carrega
 │   │   └── ui/              # Peças reutilizáveis
 │   │       ├── OfficialLogo.tsx  # Símbolo da marca (usado na seção de contato)
 │   │       ├── SectionTag.tsx    # Etiqueta numerada das seções
 │   │       ├── PageHero.tsx      # Cabeçalho das páginas internas
 │   │       ├── Photo.tsx         # Imagem, ou espaço reservado se estiver vazia
 │   │       ├── InteractiveImage.tsx # Imagem com moldura, zoom e link opcional
+│   │       ├── FilterChips.tsx   # Botões de filtro (ex.: categorias)
+│   │       ├── SearchField.tsx   # Campo de busca
+│   │       ├── UpdateStatus.tsx  # Quadro "Atualizado há X min"
+│   │       ├── StatusPanel.tsx   # Painel de erro / lista vazia
+│   │       ├── linkProps.ts      # Links externos em nova aba com segurança
 │   │       └── Icons.tsx         # Ícones SVG (seta, código, órbita, play)
 │   ├── sections/            # Seções da página inicial, uma por arquivo
 │   │   ├── Hero.tsx         # Topo, com chamada principal
@@ -67,10 +78,13 @@ camaroes-inc/
 │   │   ├── links.ts         # Destinos centrais da navegação e contato
 │   │   ├── featured.ts      # Home: textos da seção "Projetos em destaque"
 │   │   ├── team.ts          # Equipe: texto de abertura e os 5 membros
-│   │   └── projects.ts      # Projetos: texto de abertura e a lista de projetos
+│   │   ├── projects.ts      # Projetos: texto de abertura e a lista de projetos
+│   │   └── news.ts          # Notícias: tipo, categorias, regras (ordenar, filtrar) e texto de abertura
+│   ├── services/news/       # Busca das notícias (fonte, validação do JSON, cache)
+│   ├── hooks/               # useNews (atualização automática) e useNow
 │   ├── styles/
 │   │   ├── index.css        # Tailwind + CSS global e da página inicial
-│   │   └── pages.css        # CSS das páginas Equipe e Projetos
+│   │   └── pages.css        # CSS das páginas Equipe, Projetos e Notícias
 │   └── vite-env.d.ts
 ├── index.html               # Shell HTML: título, descrição, fontes, favicon
 ├── vite.config.ts           # Vite + React + Tailwind + alias "@" para src/
@@ -111,6 +125,42 @@ Dica de imagem: use fotos da equipe na proporção 4:5 (vertical, até 640 px de
 imagens de projeto na proporção 4:3 (até 1600 px), de preferência em WebP e com menos de 400 KB.
 Para converter, por exemplo: `cwebp -q 80 -resize 1600 0 foto.jpg -o foto.webp`.
 
+## Publicando notícias
+
+As notícias ficam em [`public/data/noticias.json`](public/data/noticias.json). O site lê esse
+arquivo **direto da branch `master` no GitHub**, então uma notícia nova aparece sem novo deploy:
+basta editar o arquivo (pelo próprio GitHub, no ícone de lápis) e fazer o commit na `master`.
+O GitHub pode levar cerca de 5 minutos para servir a versão nova, e a página busca novidades
+a cada 5 minutos. Se o GitHub não responder, o site usa a cópia publicada junto com ele.
+
+Cada notícia é um objeto dentro de `"news"`:
+
+```json
+{
+  "id": "2026-12-nome-curto",
+  "title": "Título da notícia",
+  "summary": "Resumo de uma ou duas frases.",
+  "category": "Projetos",
+  "publishedAt": "2026-12-01",
+  "image": "images/projects/semeia.webp",
+  "imageAlt": "Descrição da imagem",
+  "link": "https://exemplo.com",
+  "featured": true
+}
+```
+
+- **Obrigatórios:** `id` (único), `title`, `summary`, `category` (`Projetos`, `Eventos`, `Equipe`
+  ou `IFSP`) e `publishedAt` (`AAAA-MM-DD`). A lista é ordenada pela data automaticamente.
+- **Opcionais:** `image` (caminho em `public/` ou URL `https`) e `imageAlt`; `link` (`https://...`
+  ou rota interna como `#/projetos`); `featured: true` coloca a notícia no destaque (sem nenhuma
+  marcada, o destaque é a mais recente).
+- Itens com campo obrigatório faltando ou inválido são ignorados, e links ou imagens com
+  endereços não permitidos são descartados. Antes do commit, confira se o JSON é válido
+  (vírgulas e aspas).
+- Para criar uma categoria nova, adicione-a em `newsCategories`, em `src/data/news.ts`.
+- A fonte (usuário, repositório e branch do GitHub) fica em `src/services/news/index.ts`. Decisão
+  registrada em [`docs/adr/0002-noticias-json-no-github.md`](docs/adr/0002-noticias-json-no-github.md).
+
 ## Navegação entre páginas
 
 O site usa rotas por hash, sem servidor e sem bibliotecas extras. Funciona em qualquer
@@ -121,6 +171,7 @@ hospedagem estática, sem configuração adicional.
 | Início | `/` (âncoras: `#sobre`, `#fazemos`, `#projetos`, `#contato`) |
 | Equipe | `/#/equipe` |
 | Projetos | `/#/projetos` |
+| Notícias | `/#/noticias` |
 
 Os destinos fixos de navegação e contato ficam em `src/data/links.ts`. Para criar uma nova
 página: (1) crie o arquivo em `src/pages/`, (2) adicione o destino em `src/data/links.ts`
@@ -151,6 +202,8 @@ link no componente apropriado.
 | Mudar links de um projeto ou integrante | `src/data/projects.ts` ou `src/data/team.ts` |
 | Mudar cores, tamanhos e animações | `src/styles/index.css` |
 | Mudar título, descrição ou fontes | `index.html` |
+| Publicar ou editar notícias | `public/data/noticias.json` (veja "Publicando notícias") |
+| Mudar o texto de abertura da página Notícias | `newsIntro` em `src/data/news.ts` |
 | Trocar o logo do header | `public/images/site/header-logo.svg` |
 | Trocar a imagem à direita da home | `public/images/site/home-hero.webp` |
 
@@ -166,4 +219,5 @@ link no componente apropriado.
 - O cartão grande de "Projetos em destaque" não tem link (`link` vazio em `featuredMain`, em `src/data/featured.ts`); a seta só aparece quando ele for preenchido.
 - Os projetos da página Projetos ainda não têm link (`link` vazio em `src/data/projects.ts`).
 - Os LinkedIn de Bruno e Katherina estão vazios em `src/data/team.ts` (o link fica oculto até ser preenchido).
+- As notícias iniciais de `public/data/noticias.json` foram escritas a partir do conteúdo do site; revise os textos e datas.
 - O site ainda não tem domínio definido. Quando tiver, adicione em `index.html` a URL canônica e `og:url`/`og:image` (URLs absolutas) e crie `public/sitemap.xml`, citando-o em `public/robots.txt`.
