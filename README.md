@@ -11,12 +11,14 @@ Requisitos: Node.js 20+ e npm.
 npm install        # instala as dependências
 npm run dev        # servidor de desenvolvimento (http://localhost:5173)
 npm run typecheck  # checa os tipos com TypeScript
+npm test           # roda os testes automatizados (Vitest)
+npm run test:watch # testes em modo observação, rodando a cada alteração
 npm run build      # gera a versão de produção em dist/
 npm run preview    # serve o conteúdo de dist/ localmente
 ```
 
-A CI (`.github/workflows/ci.yml`) roda `typecheck` e `build` em todo pull request e push para
-`master`. Decisão registrada em [`docs/adr/0001-ci-github-actions.md`](docs/adr/0001-ci-github-actions.md).
+A CI (`.github/workflows/ci.yml`) roda `typecheck`, `test` e `build` em todo pull request e push
+para `master`. Decisão registrada em [`docs/adr/0001-ci-github-actions.md`](docs/adr/0001-ci-github-actions.md).
 
 Para publicar, envie o conteúdo da pasta `dist/` para qualquer hospedagem estática
 (Netlify, Vercel, GitHub Pages, Cloudflare Pages etc.).
@@ -82,6 +84,7 @@ camaroes-inc/
 │   │   └── news.ts          # Notícias: tipo, categorias, regras (ordenar, filtrar) e texto de abertura
 │   ├── services/news/       # Busca das notícias (fonte, validação do JSON, cache)
 │   ├── hooks/               # useNews (atualização automática) e useNow
+│   ├── test/                # Preparação dos testes (setup.ts) e dados de exemplo (fixtures.ts)
 │   ├── styles/
 │   │   ├── index.css        # Tailwind + CSS global e da página inicial
 │   │   └── pages.css        # CSS das páginas Equipe, Projetos e Notícias
@@ -160,6 +163,24 @@ Cada notícia é um objeto dentro de `"news"`:
 - Para criar uma categoria nova, adicione-a em `newsCategories`, em `src/data/news.ts`.
 - A fonte (usuário, repositório e branch do GitHub) fica em `src/services/news/index.ts`. Decisão
   registrada em [`docs/adr/0002-noticias-json-no-github.md`](docs/adr/0002-noticias-json-no-github.md).
+
+## Testes
+
+Os testes usam **Vitest** com **Testing Library** e **jsdom**
+([ADR 0003](docs/adr/0003-testes-com-vitest.md)). Cada teste fica ao lado do arquivo que testa,
+com o sufixo `.test.ts` ou `.test.tsx` (ex.: `src/data/news.ts` → `src/data/news.test.ts`).
+
+| Testado hoje | Arquivo de teste |
+|---|---|
+| Regras de notícia (ordenar, filtrar, destaque, datas) | `src/data/news.test.ts` |
+| Validação do JSON de notícias (campos, links e imagens seguros) | `src/services/news/newsMapper.test.ts` |
+| Busca HTTP, tempo limite e fonte reserva | `src/services/news/JsonNewsRepository.test.ts`, `FallbackNewsRepository.test.ts` |
+| Cache no navegador | `src/services/news/newsCache.test.ts` |
+| Atualização automática (`useNews`) | `src/hooks/useNews.test.tsx` |
+| Componentes e página de Notícias | `NewsCard.test.tsx`, `FilterChips.test.tsx`, `NewsPage.test.tsx` |
+
+Para um teste novo, use `makeNews()` de `src/test/fixtures.ts` para criar notícias de exemplo
+e prefira consultar a tela como uma pessoa usaria (`getByRole`, `getByText`).
 
 ## Navegação entre páginas
 

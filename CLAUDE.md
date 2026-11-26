@@ -97,10 +97,11 @@ Outras arquiteturas (ex.: SSR/Next.js, roteador externo, gerenciador de estado g
 - **Convenções:** componentes em PascalCase, um por arquivo, `export default` (exceção: `Icons.tsx`);
   imports com o alias `@/`.
 - **Branches:** `master` é a principal; o trabalho acontece em branches de feature e entra por PR.
-- **Qualidade:** antes de entregar, rodar `npm run typecheck` e `npm run build`. A **CI** (GitHub Actions,
-  [ADR 0001](docs/adr/0001-ci-github-actions.md)) roda os dois em todo PR e push para `master`.
-  Ainda **não há testes automatizados**; adotá-los (ex.: Vitest + Testing Library) é uma decisão pendente
-  do usuário.
+- **Qualidade:** antes de entregar, rodar `npm run typecheck`, `npm test` e `npm run build`. A **CI**
+  (GitHub Actions, [ADR 0001](docs/adr/0001-ci-github-actions.md)) roda os três em todo PR e push para `master`.
+- **Testes** ([ADR 0003](docs/adr/0003-testes-com-vitest.md)): Vitest + Testing Library + jsdom. Cada teste
+  fica ao lado do arquivo que testa (`Arquivo.test.ts(x)`); preparação comum em `src/test/`. Código novo
+  com regra de negócio, validação ou estado vem acompanhado de testes.
 - **Imagens e caminhos:** caminhos em `src/data/assets.ts` são **relativos** (sem `/` inicial), para
   funcionar em subpastas. Fotos em WebP, redimensionadas.
 - **Notícias** ([ADR 0002](docs/adr/0002-noticias-json-no-github.md)): conteúdo em
@@ -119,7 +120,7 @@ Guia detalhado de estrutura e edição: [`README.md`](README.md).
    registradas em `docs/` (ADRs em `docs/adr/`).
 3. Discutir alternativas e trade-offs.
 4. **Aguardar a decisão do usuário.**
-5. Implementar seguindo a arquitetura da seção 3 (com testes, quando houver infraestrutura de testes).
-6. Validar com `npm run typecheck` e `npm run build`.
+5. Implementar seguindo a arquitetura da seção 3, com testes.
+6. Validar com `npm run typecheck`, `npm test` e `npm run build`.
 7. Commit e push **somente com autorização**, na branch combinada.
 8. Atualizar o `README.md` quando a estrutura, as convenções ou as pendências mudarem.
